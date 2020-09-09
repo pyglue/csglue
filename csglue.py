@@ -5,6 +5,7 @@ from datetime import datetime
 
 _aimbone = 8 #8 = head
 _fov = 120.0
+_aimkey = 1
 
 def get_offsets():
     while True:
@@ -48,7 +49,8 @@ class Chams():
             try:
                 entity = self.pm.read_int(glow_object + 56 * i)
                 if self.get_class_id(entity) == 40:
-                    if self.get_entity_team(entity) != local_player_team:
+                    entity_team = self.get_entity_team(entity)
+                    if entity_team != local_player_team and entity_team != 0:
                         self.pm.write_uchar(entity + 112, 255)
                         self.pm.write_uchar(entity + 113, 0)
                         self.pm.write_uchar(entity + 114, 255)
@@ -134,10 +136,10 @@ class Aim():
     def run(self):
         key_pressed = False
         while True:
-            if win32api.GetKeyState(1) == 0 or win32api.GetKeyState(1) == 1:
+            if win32api.GetKeyState(_aimkey) == 0 or win32api.GetKeyState(_aimkey) == 1:
                 key_pressed = False
             
-            if (win32api.GetKeyState(1) == -127 or win32api.GetKeyState(1) == -128) and not key_pressed:
+            if (win32api.GetKeyState(_aimkey) == -127 or win32api.GetKeyState(_aimkey) == -128) and not key_pressed:
                 self.aim()
                 key_pressed = True
 
