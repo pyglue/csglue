@@ -200,14 +200,13 @@ class Glow():
             sleep(0.2)
 
 def main():
-    condition = False
-    while not condition:
+    while True:
         try:
             pm = pymem.Pymem('csgo.exe')
             p_handle = pm.process_handle
             base_client = pymem.process.module_from_name(p_handle, 'client.dll').lpBaseOfDll
             base_engine = pymem.process.module_from_name(p_handle, 'engine.dll').lpBaseOfDll
-            condition = True
+            break
         except:
             sleep(2)
 
