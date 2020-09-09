@@ -114,9 +114,9 @@ class Aim():
                         
                             entity_bmatrix = self.pm.read_int(entity + self.m_dwBoneMatrix)
 
-                            aim_x = self.pm.read_float(entity_bmatrix + (0x30 * _aimbone) + 12) - local_x
-                            aim_y = self.pm.read_float(entity_bmatrix + (0x30 * _aimbone) + 28) - local_y
-                            aim_z = entity_z = self.pm.read_float(entity_bmatrix + (0x30 * _aimbone) + 44) - local_z
+                            aim_x = self.pm.read_float(entity_bmatrix + (48 * _aimbone) + 12) - local_x
+                            aim_y = self.pm.read_float(entity_bmatrix + (48 * _aimbone) + 28) - local_y
+                            aim_z = entity_z = self.pm.read_float(entity_bmatrix + (48 * _aimbone) + 44) - local_z
 
                             #quick maths
                             aim_pitch = self.rad2deg(math.acos(aim_z / math.sqrt(math.pow(aim_x, 2) + math.pow(aim_y, 2) + math.pow(aim_z, 2)))) - 90
@@ -134,10 +134,10 @@ class Aim():
     def run(self):
         key_pressed = False
         while True:
-            if win32api.GetKeyState(0x1) == 0 or win32api.GetKeyState(0x1) == 1:
+            if win32api.GetKeyState(1) == 0 or win32api.GetKeyState(1) == 1:
                 key_pressed = False
             
-            if (win32api.GetKeyState(0x1) == -127 or win32api.GetKeyState(0x1) == -128) and not key_pressed:
+            if (win32api.GetKeyState(1) == -127 or win32api.GetKeyState(1) == -128) and not key_pressed:
                 self.aim()
                 key_pressed = True
 
